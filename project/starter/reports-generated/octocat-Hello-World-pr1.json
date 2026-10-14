@@ -1,0 +1,142 @@
+{
+  "pullRequest": {
+    "owner": "octocat",
+    "repo": "Hello-World",
+    "number": 1
+  },
+  "fileReviews": [
+    {
+      "file": "README",
+      "codeQuality": {
+        "file": "README",
+        "issues": [
+          {
+            "line": 2,
+            "severity": "high",
+            "category": "maintainability",
+            "description": "Inline shell commands mixed with documentation text without clear separation - makes output ambiguous and hard to parse. The format '$ mkdir ~/Hello-WorldCreates a directory...' concatenates command with description.",
+            "suggestion": "Use proper markdown formatting with code blocks and separate lines. Format as:\n```bash\n$ mkdir ~/Hello-World\n```\nCreates a directory for your project called 'Hello-World' in your user directory"
+          },
+          {
+            "line": 3,
+            "severity": "high",
+            "category": "maintainability",
+            "description": "Inconsistent command formatting continues - '$ cd ~/Hello-WorldChanges' concatenates command with explanation without whitespace or markdown structure.",
+            "suggestion": "Separate commands from descriptions using proper markdown. Use code blocks for commands and plain text or bullet points for explanations."
+          },
+          {
+            "line": 4,
+            "severity": "high",
+            "category": "maintainability",
+            "description": "Malformed documentation - '$ git initSets up' lacks space between command and description, creating unreadable text that would be confusing for users.",
+            "suggestion": "Follow markdown conventions: place command in code block, description on separate line or as bullet point text."
+          },
+          {
+            "line": 5,
+            "severity": "medium",
+            "category": "maintainability",
+            "description": "Output example placed without clear context - 'Initialized empty Git repository in /Users/your_user_directory/Hello-World/.git/' appears to be expected output but is not formatted distinctly from instructions.",
+            "suggestion": "Use markdown code block or preformatted text (indented or triple backticks) to clearly distinguish expected output from instructions."
+          },
+          {
+            "line": 6,
+            "severity": "medium",
+            "category": "maintainability",
+            "description": "Incomplete documentation - file ends with '$ touch README' without explanation of purpose or next steps. Documentation appears truncated or rushed.",
+            "suggestion": "Complete the documentation by explaining what the command does and what the user should do next. Add summary or next steps section."
+          },
+          {
+            "line": 2,
+            "severity": "low",
+            "category": "best-practice",
+            "description": "Shell command uses relative path expansion (~) which requires shell interpretation - less portable than absolute paths in documentation for users unfamiliar with shell conventions.",
+            "suggestion": "Consider adding explanation that ~ expands to home directory, or provide absolute path examples as alternatives."
+          }
+        ],
+        "overallScore": 42,
+        "summary": "The README patch has significant maintainability issues. The core problem is formatting: shell commands and descriptions are concatenated without proper markdown structure (missing spaces, code blocks, or clear separation). This creates an ambiguous, hard-to-read document that would confuse users. Three critical formatting issues exist on lines 2-4 where commands blend with explanations. The expected output (line 5) lacks visual distinction, and the documentation is incomplete (line 6). To fix: (1) Use proper markdown code blocks for all commands, (2) Place descriptions on separate lines, (3) Clearly distinguish output from instructions, (4) Complete the documentation."
+      },
+      "testCoverage": {
+        "file": "README",
+        "hasTests": false,
+        "testFiles": [],
+        "untestedPaths": [
+          {
+            "type": "edge-case",
+            "location": "Documentation accuracy",
+            "priority": "medium",
+            "reasoning": "README files are documentation, not executable code. However, the instructions provided should be verified to ensure they work correctly. The commands and paths should be tested to confirm they produce the expected results for new users.",
+            "suggestedTest": "Manual testing: Execute the documented commands in a fresh environment to verify they work as described and produce the expected output. Consider adding automated documentation tests using tools like 'markdown-link-check' or custom scripts to validate command examples."
+          }
+        ],
+        "coverageEstimate": 0,
+        "summary": "README is a documentation file without executable code or associated test files. While traditional code coverage doesn't apply, the documentation accuracy should be verified through manual testing of the provided commands. Consider implementing documentation validation to ensure instructions remain accurate as the project evolves."
+      },
+      "refactorings": {
+        "file": "README",
+        "suggestions": [
+          {
+            "type": "modernize",
+            "location": "Lines 2-6 (entire documentation structure)",
+            "impact": "high",
+            "description": "Add proper markdown formatting to shell commands and restructure content with clear hierarchy",
+            "before": "Hello World!\n$ mkdir ~/Hello-WorldCreates a directory for your project called \"Hello-World\" in your user directory\n$ cd ~/Hello-WorldChanges the current working directory to your newly created directory\n$ git initSets up the necessary Git files\nInitialized empty Git repository in /Users/your_user_directory/Hello-World/.git/\n$ touch README",
+            "after": "# Hello World!\n\n## Getting Started\n\n1. Create a directory for your project:\n   ```bash\n   $ mkdir ~/Hello-World\n   ```\n   Creates a directory for your project called \"Hello-World\" in your user directory\n\n2. Navigate to your project directory:\n   ```bash\n   $ cd ~/Hello-World\n   ```\n   Changes the current working directory to your newly created directory\n\n3. Initialize a Git repository:\n   ```bash\n   $ git init\n   ```\n   Sets up the necessary Git files. You should see:\n   ```\n   Initialized empty Git repository in /Users/your_user_directory/Hello-World/.git/\n   ```\n\n4. Create a README file:\n   ```bash\n   $ touch README\n   ```",
+            "benefits": "Improves readability with proper markdown formatting, separates commands from descriptions, makes shell commands easily copy-pasteable, adds hierarchy to guide new users, clearly distinguishes expected output from instructions"
+          }
+        ],
+        "summary": "README formatting needs significant improvement. Commands and descriptions are concatenated without separation, making it hard to read and copy commands. Restructure with markdown code blocks, numbered steps, and clear visual hierarchy to create professional, user-friendly documentation."
+      }
+    }
+  ],
+  "summary": {
+    "totalFiles": 1,
+    "overallScore": 42,
+    "criticalIssues": 0,
+    "highPriorityTests": 0,
+    "refactoringOpportunities": 1
+  },
+  "recommendations": [
+    {
+      "priority": "high",
+      "category": "Maintainability",
+      "description": "Reformat README with proper markdown structure: separate all shell commands into code blocks, add clear spacing between commands and descriptions, and use numbered lists for step-by-step instructions. This will dramatically improve readability and user experience.",
+      "files": [
+        "README"
+      ]
+    },
+    {
+      "priority": "medium",
+      "category": "Maintainability",
+      "description": "Complete the documentation by adding explanations for all commands (especially '$ touch README' at the end) and include a summary or next steps section to guide users after initial setup.",
+      "files": [
+        "README"
+      ]
+    },
+    {
+      "priority": "medium",
+      "category": "Testing",
+      "description": "Verify documentation accuracy by manually testing all provided commands in a fresh environment. Consider implementing automated documentation validation to ensure instructions remain correct as the project evolves.",
+      "files": [
+        "README"
+      ]
+    },
+    {
+      "priority": "low",
+      "category": "Maintainability",
+      "description": "Add explanation that '~' expands to the home directory for users unfamiliar with shell conventions, or provide absolute path examples as alternatives to improve documentation accessibility.",
+      "files": [
+        "README"
+      ]
+    }
+  ],
+  "metadata": {
+    "analyzedAt": "2026-10-14T00:00:00.000Z",
+    "duration": 4500,
+    "agentVersions": {
+      "code-quality-analyzer": "1.0",
+      "test-coverage-analyzer": "1.0",
+      "refactoring-suggester": "1.0"
+    }
+  }
+}
